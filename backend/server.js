@@ -97,7 +97,16 @@ app.get('/api/docs', (req, res) => {
         web2jsonAttest: {
           method: 'POST',
           path: '/api/credit-score/web2json/attest',
-          description: 'Create Web2JSON attestation for credit score data',
+          description: 'Create Web2JSON attestation for credit score data (Legacy mock)',
+          body: {
+            ssn: 'string (required)',
+            userAddress: 'string (required)'
+          }
+        },
+        fdcAttest: {
+          method: 'POST',
+          path: '/api/credit-score/fdc/attest',
+          description: 'Create FDC Web2JSON attestation for credit score data (Real FDC implementation)',
           body: {
             ssn: 'string (required)',
             userAddress: 'string (required)'
@@ -106,7 +115,7 @@ app.get('/api/docs', (req, res) => {
         completeFlow: {
           method: 'POST',
           path: '/api/credit-score/complete-flow',
-          description: 'Complete flow: Experian -> Web2JSON -> Smart Contract Ready Data',
+          description: 'Complete flow: Experian -> FDC Web2JSON -> Smart Contract Ready Data',
           body: {
             ssn: 'string (required)',
             firstName: 'string (required)',

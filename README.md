@@ -55,21 +55,28 @@ This will start:
 ### ✅ Completed Features
 
 1. **Mock Experian API Service**
-   - Realistic credit report generation
-   - Multiple test profiles with different credit scores
+   - Realistic credit report generation with FICO Score 8 model
+   - Multiple test profiles with different credit scores (300-850 range)
    - Comprehensive credit factors (payment history, utilization, etc.)
-   - Mock account and inquiry data
+   - Mock account and inquiry data with realistic structures
 
-2. **Web2JSON FDC Integration**
-   - Flare Data Connector integration
-   - Off-chain to on-chain data mapping
-   - Attestation proof generation
-   - Merkle proof system for verification
-   - Smart contract ready data formatting
+2. **Real FDC Web2JSON Integration**
+   - **Actual Flare Data Connector implementation** following [official documentation](https://dev.flare.network/fdc/guides/hardhat/web-2-json-for-custom-api)
+   - Proper attestation request formatting with API URL, JQ filters, and ABI signatures
+   - Real cryptographic proof generation with Merkle trees
+   - ABI-encoded response data (`responseHex`) for smart contract consumption
+   - Complete Web2-to-Web3 data bridging pipeline
+   - Both legacy mock and real FDC implementations available
 
-3. **API Infrastructure**
-   - RESTful API endpoints
-   - Complete credit score flow
+3. **Smart Contract Integration**
+   - `CreditScoreOracle.sol` contract for storing and verifying credit scores
+   - FDC Web2JSON proof verification system
+   - Composite credit scoring algorithm
+   - Loan eligibility determination logic
+
+4. **API Infrastructure**
+   - RESTful API endpoints with both legacy and FDC implementations
+   - Complete credit score flow using real FDC attestations
    - Error handling and validation
    - Comprehensive documentation
 
@@ -115,17 +122,25 @@ This interactive demo showcases:
 
 ### Run the Test Suite
 
+**Legacy Web2JSON Tests:**
 ```bash
 cd backend
 node test/testFlow.js
 ```
 
-This comprehensive test suite validates:
-- Health check endpoint
-- Mock Experian API calls
-- Web2JSON attestation process
-- Complete credit score flow
-- All API endpoints
+**FDC Web2JSON Tests:**
+```bash
+cd backend
+node test/testFDCWeb2Json.js
+```
+
+The FDC test suite validates:
+- Real Flare Data Connector integration
+- Proper Web2JSON attestation request formatting
+- JQ filter processing for data transformation
+- ABI encoding for Solidity compatibility
+- Cryptographic proof generation with Merkle trees
+- Comparison between legacy mock and real FDC implementations
 
 ### API Endpoints
 
@@ -139,9 +154,20 @@ GET http://localhost:5000/health
 GET http://localhost:5000/api/credit-score/mock-data
 ```
 
-#### Complete Credit Score Flow
+#### FDC Web2JSON Attestation
 ```bash
-POST http://localhost:5000/api/credit-score/complete-flow
+POST http://localhost:3001/api/credit-score/fdc/attest
+Content-Type: application/json
+
+{
+  "ssn": "123-45-6789",
+  "userAddress": "0x742d35Cc6634C0532925a3b8D4C9d1E6b0Db1d46"
+}
+```
+
+#### Complete Credit Score Flow (with FDC)
+```bash
+POST http://localhost:3001/api/credit-score/complete-flow
 Content-Type: application/json
 
 {

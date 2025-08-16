@@ -7,6 +7,7 @@ const express = require('express');
 const router = express.Router();
 const experianMock = require('../services/experianMock');
 const web2JsonService = require('../services/web2JsonService');
+const fdcWeb2JsonService = require('../services/fdcWeb2JsonService');
 
 /**
  * GET /api/credit-score/test
@@ -98,7 +99,7 @@ router.post('/experian/simplified', async (req, res) => {
 
 /**
  * POST /api/credit-score/web2json/attest
- * Create Web2JSON attestation for credit score data
+ * Create Web2JSON attestation for credit score data (Legacy mock version)
  */
 router.post('/web2json/attest', async (req, res) => {
   try {
@@ -121,7 +122,7 @@ router.post('/web2json/attest', async (req, res) => {
       });
     }
 
-    // Process Web2JSON attestation
+    // Process Web2JSON attestation (legacy mock)
     const attestationResult = await web2JsonService.processCreditScoreAttestation(
       creditData,
       userAddress
@@ -144,6 +145,62 @@ router.post('/web2json/attest', async (req, res) => {
     res.status(500).json({
       success: false,
       error: 'Internal server error while processing attestation'
+    });
+  }
+});
+
+/**
+ * POST /api/credit-score/fdc/attest
+ * Create FDC Web2JSON attestation for credit score data (Real FDC implementation)
+ */
+router.post('/fdc/attest', async (req, res) => {
+  try {
+    const { ssn, userAddress } = req.body;
+
+    if (!ssn || !userAddress) {
+      return res.status(400).json({
+        success: false,
+        error: 'SSN and userAddress are required'
+      });
+    }
+
+    // Get credit data from Experian mock
+    const creditData = await experianMock.getSimplifiedCreditData(ssn);
+
+    if (!creditData) {
+      return res.status(404).json({
+        success: false,
+        error: 'No credit data found for provided SSN'
+      });
+    }
+
+    // Add SSN to credit data for FDC processing
+    creditData.ssn = ssn;
+
+    // Process FDC Web2JSON attestation
+    const fdcResult = await fdcWeb2JsonService.processCreditScoreAttestation(
+      creditData,
+      userAddress
+    );
+
+    if (!fdcResult.success) {
+      return res.status(500).json({
+        success: false,
+        error: `FDC attestation failed: ${fdcResult.error}`
+      });
+    }
+
+    res.json({
+      success: true,
+      type: 'FDC_WEB2JSON',
+      attestation: fdcResult,
+      originalCreditData: creditData
+    });
+  } catch (error) {
+    console.error('Error processing FDC Web2JSON attestation:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Internal server error while processing FDC attestation'
     });
   }
 });
@@ -180,16 +237,17 @@ router.post('/complete-flow', async (req, res) => {
     // Step 2: Get simplified data for blockchain
     const simplifiedData = await experianMock.getSimplifiedCreditData(ssn);
 
-    // Step 3: Process Web2JSON attestation
-    const attestationResult = await web2JsonService.processCreditScoreAttestation(
+    // Step 3: Process FDC Web2JSON attestation
+    simplifiedData.ssn = ssn; // Add SSN for FDC processing
+    const fdcResult = await fdcWeb2JsonService.processCreditScoreAttestation(
       simplifiedData,
       userAddress
     );
 
-    if (!attestationResult.success) {
+    if (!fdcResult.success) {
       return res.status(500).json({
         success: false,
-        error: `Attestation failed: ${attestationResult.error}`
+        error: `FDC attestation failed: ${fdcResult.error}`
       });
     }
 
@@ -197,11 +255,12 @@ router.post('/complete-flow', async (req, res) => {
     res.json({
       success: true,
       flow: 'complete',
+      type: 'FDC_WEB2JSON',
       data: {
         fullCreditReport,
         simplifiedData,
-        attestation: attestationResult,
-        smartContractData: attestationResult.contractData
+        fdcAttestation: fdcResult,
+        smartContractData: fdcResult.contractData
       },
       timestamp: new Date().toISOString()
     });
