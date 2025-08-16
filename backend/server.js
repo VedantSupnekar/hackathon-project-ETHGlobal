@@ -9,6 +9,7 @@ const config = require('./config');
 
 // Import routes
 const creditScoreRoutes = require('./routes/creditScore');
+const authRoutes = require('./routes/auth');
 
 const app = express();
 
@@ -46,6 +47,7 @@ app.get('/health', (req, res) => {
 
 // API Routes
 app.use('/api/credit-score', creditScoreRoutes);
+app.use('/api/auth', authRoutes);
 
 // Root endpoint
 app.get('/', (req, res) => {
@@ -56,6 +58,7 @@ app.get('/', (req, res) => {
     endpoints: {
       health: '/health',
       creditScore: '/api/credit-score',
+      authentication: '/api/auth',
       documentation: '/api/docs'
     }
   });
@@ -128,6 +131,114 @@ app.get('/api/docs', (req, res) => {
           method: 'GET',
           path: '/api/credit-score/mock-data',
           description: 'Get available mock SSNs for testing'
+        }
+      },
+      authentication: {
+        register: {
+          method: 'POST',
+          path: '/api/auth/register',
+          description: 'Register a new user account',
+          body: {
+            email: 'string (required)',
+            password: 'string (required)',
+            firstName: 'string (required)',
+            lastName: 'string (required)',
+            ssn: 'string (required)',
+            dateOfBirth: 'string (optional)'
+          }
+        },
+        login: {
+          method: 'POST',
+          path: '/api/auth/login',
+          description: 'Login user and get JWT token',
+          body: {
+            email: 'string (required)',
+            password: 'string (required)'
+          }
+        },
+        profile: {
+          method: 'GET',
+          path: '/api/auth/profile',
+          description: 'Get user profile (requires authentication)',
+          headers: {
+            Authorization: 'Bearer <jwt_token>'
+          }
+        },
+        createWallet: {
+          method: 'POST',
+          path: '/api/auth/wallet/create',
+          description: 'Create a new wallet for user (requires authentication)',
+          headers: {
+            Authorization: 'Bearer <jwt_token>'
+          }
+        },
+        linkWallet: {
+          method: 'POST',
+          path: '/api/auth/wallet/link',
+          description: 'Link existing wallet to user (requires authentication)',
+          headers: {
+            Authorization: 'Bearer <jwt_token>'
+          },
+          body: {
+            walletAddress: 'string (required)',
+            signature: 'string (required)'
+          }
+        },
+        onChainScore: {
+          method: 'GET',
+          path: '/api/auth/score/onchain',
+          description: 'Get on-chain credit score (requires authentication)',
+          headers: {
+            Authorization: 'Bearer <jwt_token>'
+          }
+        },
+        offChainScore: {
+          method: 'POST',
+          path: '/api/auth/score/offchain',
+          description: 'Update off-chain credit score using FDC (requires authentication)',
+          headers: {
+            Authorization: 'Bearer <jwt_token>'
+          },
+          body: {
+            ssn: 'string (required)',
+            firstName: 'string (optional)',
+            lastName: 'string (optional)',
+            dateOfBirth: 'string (optional)'
+          }
+        },
+        compositeScore: {
+          method: 'GET',
+          path: '/api/auth/score/composite',
+          description: 'Get composite credit score (on-chain + off-chain weighted) (requires authentication)',
+          headers: {
+            Authorization: 'Bearer <jwt_token>'
+          }
+        },
+        completeOnboarding: {
+          method: 'POST',
+          path: '/api/auth/complete-onboarding',
+          description: 'Complete user onboarding with wallet and credit scoring (requires authentication)',
+          headers: {
+            Authorization: 'Bearer <jwt_token>'
+          },
+          body: {
+            createWallet: 'boolean (optional)',
+            linkWallet: 'boolean (optional)',
+            walletAddress: 'string (required if linkWallet=true)',
+            signature: 'string (required if linkWallet=true)',
+            ssn: 'string (optional)',
+            firstName: 'string (optional)',
+            lastName: 'string (optional)',
+            dateOfBirth: 'string (optional)'
+          }
+        },
+        dashboard: {
+          method: 'GET',
+          path: '/api/auth/dashboard',
+          description: 'Get complete user dashboard data (requires authentication)',
+          headers: {
+            Authorization: 'Bearer <jwt_token>'
+          }
         }
       }
     }
