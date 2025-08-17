@@ -9,7 +9,7 @@ const demoWalletService = require('./demoWalletService');
 class WalletAnalysisService {
   constructor() {
     // Connect to Hardhat local network
-    this.provider = new ethers.JsonRpcProvider('http://127.0.0.1:8545');
+    this.provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545');
     this.isConnected = false;
     this.initializeProvider();
   }

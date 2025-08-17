@@ -1,280 +1,301 @@
-# 🏦 DeFi Credit Scoring Platform
+# DeFi Lending Platform
 
-A comprehensive DeFi lending platform that enables secure user authentication, multi-wallet portfolio management, and advanced credit scoring combining on-chain analytics, off-chain data via Flare FDC, and decentralized storage via IPFS.
+A comprehensive DeFi lending platform that enables banks to pool money and customers to borrow based on a multi-factor credit scoring system combining on-chain, off-chain (via Flare FDC), and referral-based scoring.
 
-## 🎯 **Major Achievements**
+## 🏗️ Architecture Overview
 
-### ✅ **Full Authentication System**
-- 🔐 **Secure user registration/login** with bcrypt password hashing & JWT tokens
-- 👤 **Multi-wallet portfolio system** - one user can link multiple crypto wallets
-- 🌐 **Dynamic Web3 ID generation** for each user
-- 🔒 **Security-first design** - eliminated authentication bypass vulnerabilities
+### Core Components
 
-### ✅ **Advanced Credit Scoring**
-- 📊 **Real-time on-chain analysis** - analyzes actual wallet transactions, balances, activity
-- 🌉 **Flare FDC Web2JSON integration** - bridges traditional credit data to blockchain
-- 🔗 **Composite scoring** - combines on-chain + off-chain + referral scores
-- ⚖️ **Weighted aggregation** across multiple linked wallets per user
+1. **Credit Scoring System**
+   - **On-chain Score**: Based on blockchain transaction history and DeFi activity
+   - **Off-chain Score**: Traditional credit data via Experian API → Web2JSON FDC mapping
+   - **Referral Score**: Social credit scoring via The Graph protocol
 
-### ✅ **Decentralized Storage (IPFS)**
-- 🌐 **IPFS integration** for storing user profiles and credit data off-chain
-- 🔗 **Smart contracts** store IPFS hashes on-chain for immutable references
-- 📦 **Hybrid storage** - local fallback when IPFS unavailable
-- 🛡️ **Data integrity** with cryptographic verification
+2. **User Interface**
+   - Account creation with SSN verification
+   - Circle integration for on-chain verification
+   - Unique wallet generation per user
+   - Credit score dashboard with breakdowns
+   - Loan application and management
+   - Referral system
 
-### ✅ **Modern Frontend & Backend**
-- ⚛️ **Next.js frontend** with TypeScript, Tailwind CSS
-- 🦊 **MetaMask integration** with network switching and error handling  
-- 🔄 **Express.js API** with comprehensive endpoints
-- 🧪 **Demo system** with database reset functionality
+3. **Bank Interface**
+   - Wallet connection for banks
+   - APY monitoring and returns tracking
+   - Money pooling and management
+   - Default protection via insurance pool
 
-### ✅ **Blockchain Integration**
-- ⛓️ **Ganache CLI** local blockchain for development
-- 📝 **Smart contracts** for credit registry and IPFS hash storage
-- 💰 **Real wallet analysis** using ethers.js v6
-- 🔍 **On-chain proof generation** with transaction verification
-
-## 🚀 **Quick Start**
+## 🚀 Quick Start
 
 ### Prerequisites
+
 - Node.js 16+ and npm
 - Git
-- MetaMask browser extension
 
-### 1. Clone & Install
+### Installation
+
 ```bash
+# Clone the repository
 git clone <your-repo-url>
 cd hackathon-project
 
-# Install backend dependencies
-cd backend && npm install
+# Install dependencies for all packages
+npm run install:all
 
-# Install frontend dependencies  
-cd ../frontend && npm install
+# Start development servers
+npm run dev
 ```
 
-### 2. Start Local Blockchain
+This will start:
+- Backend API server on http://localhost:5000
+- Frontend development server on http://localhost:3000
+
+## 📊 Current Implementation Status
+
+### ✅ Completed Features
+
+1. **Mock Experian API Service**
+   - Realistic credit report generation with FICO Score 8 model
+   - Multiple test profiles with different credit scores (300-850 range)
+   - Comprehensive credit factors (payment history, utilization, etc.)
+   - Mock account and inquiry data with realistic structures
+
+2. **Real FDC Web2JSON Integration**
+   - **Actual Flare Data Connector implementation** following [official documentation](https://dev.flare.network/fdc/guides/hardhat/web-2-json-for-custom-api)
+   - Proper attestation request formatting with API URL, JQ filters, and ABI signatures
+   - Real cryptographic proof generation with Merkle trees
+   - ABI-encoded response data (`responseHex`) for smart contract consumption
+   - Complete Web2-to-Web3 data bridging pipeline
+   - Both legacy mock and real FDC implementations available
+
+3. **Smart Contract Integration**
+   - `CreditScoreOracle.sol` contract for storing and verifying credit scores
+   - FDC Web2JSON proof verification system
+   - Composite credit scoring algorithm
+   - Loan eligibility determination logic
+
+4. **API Infrastructure**
+   - RESTful API endpoints with both legacy and FDC implementations
+   - Complete credit score flow using real FDC attestations
+   - Error handling and validation
+   - Comprehensive documentation
+
+### 🔄 In Progress
+
+- User authentication system
+- Wallet generation service
+- On-chain credit scoring logic
+- The Graph integration for referrals
+
+### 📋 Planned Features
+
+- Frontend user interface
+- Bank management dashboard
+- Smart contract deployment
+- Insurance pool implementation
+- Loan approval automation
+
+## 🧪 Testing the Current Implementation
+
+### Start the Backend Server
+
 ```bash
-# Terminal 1: Start Ganache
-ganache-cli --port 8545 --chainId 31337 --accounts 10 --defaultBalanceEther 10000 --mnemonic "test test test test test test test test test test test junk"
+cd backend
+npm install
+node server.js &
 ```
 
-### 3. Start Backend
+The server will start on http://localhost:3001
+
+### Run the Interactive Demo
+
 ```bash
-# Terminal 2: Start backend API
-cd backend && node server.js
+cd backend
+node demo.js
 ```
-Backend runs on: http://localhost:3001
 
-### 4. Start Frontend
+This interactive demo showcases:
+- Complete credit scoring pipeline for 3 different user profiles
+- Experian API integration with realistic credit reports
+- Web2JSON FDC attestation with cryptographic proofs
+- Smart contract ready data generation
+
+### Run the Test Suite
+
+**Legacy Web2JSON Tests:**
 ```bash
-# Terminal 3: Start Next.js frontend
-cd frontend && npm run dev
+cd backend
+node test/testFlow.js
 ```
-Frontend runs on: http://localhost:3000
 
-## 🎮 **Demo Instructions**
+**FDC Web2JSON Tests:**
+```bash
+cd backend
+node test/testFDCWeb2Json.js
+```
 
-### 1. **User Registration & Login**
-- Visit http://localhost:3000
-- Create account with email, password, name, SSN
-- Login with your credentials (secure authentication!)
+The FDC test suite validates:
+- Real Flare Data Connector integration
+- Proper Web2JSON attestation request formatting
+- JQ filter processing for data transformation
+- ABI encoding for Solidity compatibility
+- Cryptographic proof generation with Merkle trees
+- Comparison between legacy mock and real FDC implementations
 
-### 2. **Connect MetaMask Wallets**
-- Ensure MetaMask is on Local Testnet (Chain ID: 31337)
-- Connect wallets to build your multi-wallet portfolio
-- View real-time on-chain credit scores
+### API Endpoints
 
-### 3. **Set Off-Chain Credit Score**
-- Use FDC Web2JSON to simulate traditional credit data
-- Watch composite score calculation
-- Data stored on IPFS with on-chain hash references
+#### Health Check
+```bash
+GET http://localhost:5000/health
+```
 
-### 4. **Demo Reset** (for presentations)
-- Use "🧹 Reset Demo" button to clear all data
-- Start fresh demonstrations easily
+#### Get Mock Test Data
+```bash
+GET http://localhost:5000/api/credit-score/mock-data
+```
 
-## 📊 **API Endpoints**
+#### FDC Web2JSON Attestation
+```bash
+POST http://localhost:3001/api/credit-score/fdc/attest
+Content-Type: application/json
 
-### Authentication
-- `POST /api/auth/register` - Register new user
-- `POST /api/auth/login` - Secure login
-- `GET /api/auth/profile` - Get user profile
+{
+  "ssn": "123-45-6789",
+  "userAddress": "0x742d35Cc6634C0532925a3b8D4C9d1E6b0Db1d46"
+}
+```
 
-### Portfolio Management
-- `POST /api/portfolio/register` - Create user with Web3 ID
-- `POST /api/portfolio/link-wallet` - Link wallet to user
-- `GET /api/portfolio/scores/:userId` - Get all credit scores
-- `POST /api/portfolio/set-offchain-score` - Set off-chain score via FDC
+#### Complete Credit Score Flow (with FDC)
+```bash
+POST http://localhost:3001/api/credit-score/complete-flow
+Content-Type: application/json
 
-### IPFS & Decentralized Storage
-- `GET /api/ipfs/status` - Check IPFS connection status
-- `POST /api/ipfs/store-user` - Store user data on IPFS
-- `GET /api/ipfs/retrieve/:hash` - Retrieve data from IPFS
+{
+  "ssn": "123-45-6789",
+  "firstName": "John",
+  "lastName": "Doe",
+  "dateOfBirth": "1990-01-15",
+  "userAddress": "0x742d35Cc6634C0532925a3b8D4C9d1E6b0Db1d46"
+}
+```
 
-### Demo & Testing
-- `POST /api/portfolio/demo/reset` - Clear all demo data
-- `GET /api/portfolio/demo/stats` - Get system statistics
+## 🔧 Configuration
 
-## 🔧 **Configuration**
+### Environment Variables
 
-### Environment Variables (.env in backend/)
+Create a `.env` file in the backend directory:
+
 ```env
-PORT=3001
+PORT=5000
 NODE_ENV=development
+
+# Flare Network Configuration
+FLARE_RPC_URL=https://flare-api.flare.network/ext/bc/C/rpc
+FLARE_NETWORK_ID=14
+
+# Web2JSON FDC Configuration
+FDC_ATTESTATION_URL=https://fdc-api.flare.network
+FDC_API_KEY=your_fdc_api_key_here
 
 # JWT Secret
 JWT_SECRET=your_jwt_secret_here
 
-# IPFS Configuration (optional)
-IPFS_API_URL=https://ipfs.infura.io:5001/api/v0
-IPFS_GATEWAY_URL=https://gateway.ipfs.io/ipfs
-
-# Smart Contract Address (if deployed)
-IPFS_CONTRACT_ADDRESS=0x...
+# Circle API Configuration
+CIRCLE_API_KEY=your_circle_api_key_here
+CIRCLE_BASE_URL=https://api.circle.com
 ```
 
-### MetaMask Network Configuration
-- **Network Name**: Local Testnet
-- **RPC URL**: http://127.0.0.1:8545
-- **Chain ID**: 31337
-- **Currency**: ETH
+## 📚 API Documentation
 
-## 🏗️ **Architecture**
+### Credit Score Endpoints
 
-### Backend Services
-- `userAuthService.js` - Authentication & JWT management
-- `userPortfolioService.js` - Multi-wallet portfolio management
-- `walletAnalysisService.js` - Real-time on-chain credit scoring
-- `fdcWeb2JsonService.js` - Flare FDC Web2JSON integration
-- `simpleIpfsService.js` - IPFS storage with HTTP API
-- `decentralizedStorageService.js` - Orchestrates IPFS + blockchain storage
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/credit-score/test` | GET | Test API availability |
+| `/api/credit-score/experian/report` | POST | Get full Experian credit report |
+| `/api/credit-score/experian/simplified` | POST | Get simplified credit data |
+| `/api/credit-score/web2json/attest` | POST | Create Web2JSON attestation |
+| `/api/credit-score/complete-flow` | POST | Complete credit scoring flow |
+| `/api/credit-score/mock-data` | GET | Get available test profiles |
 
-### Smart Contracts
-- `UserCreditRegistry.sol` - Stores user credit data on-chain
-- `IPFSCreditRegistry.sol` - Stores IPFS hashes for decentralized data
+Full API documentation available at: http://localhost:5000/api/docs
 
-### Frontend Components
-- `AuthPage.tsx` - Registration & login interface
-- `Dashboard.tsx` - Main user dashboard with scores
-- `MetaMaskConnector.tsx` - Wallet connection with network switching
+## 🔍 Example Response - Complete Flow
 
-## 🧪 **Testing**
-
-### Manual Testing
-```bash
-# Test authentication
-curl -X POST http://localhost:3001/api/auth/register \
-  -H "Content-Type: application/json" \
-  -d '{"email":"test@demo.com","password":"secure123","firstName":"Test","lastName":"User","ssn":"111-11-1111"}'
-
-# Test wallet linking
-curl -X POST http://localhost:3001/api/portfolio/link-wallet \
-  -H "Content-Type: application/json" \
-  -d '{"userId":"user-id","walletAddress":"0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266","signature":"signature"}'
-
-# Test IPFS status
-curl http://localhost:3001/api/ipfs/status
+```json
+{
+  "success": true,
+  "flow": "complete",
+  "data": {
+    "fullCreditReport": {
+      "creditScore": { "value": 750, "model": "FICO Score 8" },
+      "creditFactors": { /* detailed breakdown */ }
+    },
+    "simplifiedData": {
+      "creditScore": 750,
+      "paymentHistory": 95,
+      "creditUtilization": 25,
+      "creditHistoryLength": 8,
+      "accountsOpen": 5,
+      "recentInquiries": 2,
+      "publicRecords": 0,
+      "delinquencies": 0
+    },
+    "attestation": {
+      "attestationId": "web2json_1699123456789_abc123def",
+      "contractData": {
+        "creditScore": 750,
+        "dataHash": "0x1234567890abcdef...",
+        "merkleRoot": "0xfedcba0987654321...",
+        "blockNumber": 5123456,
+        "timestamp": 1699123456
+      }
+    }
+  }
+}
 ```
 
-### Demo Reset
-```bash
-curl -X POST http://localhost:3001/api/portfolio/demo/reset
-```
+## 🛠️ Development Roadmap
 
-## 🔒 **Security Features**
+### Phase 1: Foundation (Current)
+- ✅ Mock Experian API
+- ✅ Web2JSON FDC integration
+- ✅ Basic API infrastructure
 
-- ✅ **Password hashing** with bcrypt
-- ✅ **JWT token authentication** 
-- ✅ **Signature verification** for wallet linking
-- ✅ **Input validation** and sanitization
-- ✅ **CORS protection**
-- ✅ **Eliminated authentication bypass** vulnerabilities
-- ✅ **Secure API endpoints** with proper error handling
+### Phase 2: Core Features
+- [ ] Smart contract development
+- [ ] On-chain credit scoring
+- [ ] User authentication system
+- [ ] Wallet generation
 
-## 📈 **Credit Scoring Algorithm**
+### Phase 3: Advanced Features
+- [ ] The Graph integration for referrals
+- [ ] Frontend user interface
+- [ ] Bank management dashboard
+- [ ] Loan approval automation
 
-### On-Chain Score (0-850)
-- **Balance Score**: Higher balances = higher score
-- **Transaction Activity**: Regular transactions = positive
-- **Account Age**: Older accounts = more trustworthy
-- **Risk Assessment**: Low-risk behavior = higher score
+### Phase 4: Production Ready
+- [ ] Security audits
+- [ ] Performance optimization
+- [ ] Real Experian API integration
+- [ ] Deployment and monitoring
 
-### Composite Score Calculation
-```javascript
-compositeScore = (onChainScore * 0.4) + (offChainScore * 0.5) + (referralScore * 0.1)
-```
-
-### Multi-Wallet Aggregation
-- Analyzes all linked wallets per user
-- Calculates weighted average based on wallet activity
-- Provides comprehensive portfolio view
-
-## 🌟 **Key Innovations**
-
-1. **Multi-Wallet User Identity** - One user, multiple wallets, unified credit profile
-2. **Real-Time On-Chain Analysis** - Dynamic scoring based on actual blockchain data
-3. **Flare FDC Bridge** - Seamless Web2 to Web3 data integration
-4. **IPFS + Blockchain Hybrid** - Decentralized storage with on-chain references
-5. **Security-First Design** - Comprehensive authentication and validation
-
-## 🎯 **Demo Scenarios**
-
-### Scenario 1: High-Credit User
-- Register with good SSN
-- Link wallet with high balance (10,000 ETH)
-- Set high off-chain score (750+)
-- See composite score calculation
-
-### Scenario 2: Multi-Wallet Portfolio
-- Register user
-- Link multiple wallets with different balances
-- Watch aggregated on-chain score calculation
-- Compare individual vs. portfolio scores
-
-### Scenario 3: IPFS Storage
-- Create user profile
-- Check IPFS status
-- View stored data via IPFS hash
-- Verify on-chain hash references
-
-## 🛠️ **Troubleshooting**
-
-### Common Issues
-
-**MetaMask Connection Issues**
-- Ensure Chain ID is 31337
-- Reset MetaMask account if needed
-- Check Ganache is running on port 8545
-
-**Backend Startup Issues**
-- Check port 3001 is available
-- Verify all dependencies installed
-- Check Ganache blockchain is running
-
-**Frontend Build Issues**
-- Clear Next.js cache: `rm -rf .next`
-- Reinstall dependencies: `rm -rf node_modules && npm install`
-
-## 📚 **Additional Documentation**
-
-Key guides kept for reference:
-- `TESTING_GUIDE.md` - Comprehensive testing procedures
-- `UI_DEMO_GUIDE.md` - Frontend demo walkthrough
-- `HACKATHON_DEMO_GUIDE.md` - Presentation guide
-
-## 🤝 **Contributing**
+## 🤝 Contributing
 
 1. Fork the repository
 2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a Pull Request
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
 
-## 📄 **License**
+## 📄 License
 
-MIT License - see LICENSE file for details.
+This project is licensed under the MIT License.
+
+## 🆘 Support
+
+For questions or support, please open an issue in the repository or contact the development team.
 
 ---
 
-**🎉 Hackathon Achievement**: Complete DeFi credit scoring platform with multi-wallet support, real blockchain integration, decentralized storage, and production-ready security features!
+**Note**: This is a hackathon project demonstrating the integration of traditional credit scoring with blockchain technology using Flare's FDC for Web2-to-Web3 data bridging.

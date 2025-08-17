@@ -4,7 +4,7 @@ import detectEthereumProvider from '@metamask/detect-provider';
 import { ethers } from 'ethers';
 
 interface MetaMaskConnectorProps {
-  onWalletConnected: (address: string, balance: string, provider: ethers.BrowserProvider) => void;
+  onWalletConnected: (address: string, balance: string, provider: ethers.providers.Web3Provider) => void;
   onWalletDisconnected: () => void;
 }
 
@@ -13,7 +13,7 @@ const MetaMaskConnector: React.FC<MetaMaskConnectorProps> = ({ onWalletConnected
   const [account, setAccount] = useState('');
   const [balance, setBalance] = useState('');
   const [isConnecting, setIsConnecting] = useState(false);
-  const [provider, setProvider] = useState<ethers.BrowserProvider | null>(null);
+  const [provider, setProvider] = useState<ethers.providers.Web3Provider | null>(null);
   const [chainId, setChainId] = useState<string>('');
   const [isCorrectNetwork, setIsCorrectNetwork] = useState(true);
 
@@ -45,7 +45,7 @@ const MetaMaskConnector: React.FC<MetaMaskConnectorProps> = ({ onWalletConnected
     const ethereumProvider = await detectEthereumProvider();
     if (ethereumProvider) {
       setHasProvider(true);
-      const web3Provider = new ethers.BrowserProvider(window.ethereum);
+      const web3Provider = new ethers.providers.Web3Provider(window.ethereum);
       setProvider(web3Provider);
 
       const accounts = await web3Provider.listAccounts();
@@ -70,7 +70,7 @@ const MetaMaskConnector: React.FC<MetaMaskConnectorProps> = ({ onWalletConnected
         return;
       }
 
-      const web3Provider = new ethers.BrowserProvider(window.ethereum);
+      const web3Provider = new ethers.providers.Web3Provider(window.ethereum);
       setProvider(web3Provider);
 
       // Check network
@@ -118,10 +118,10 @@ const MetaMaskConnector: React.FC<MetaMaskConnectorProps> = ({ onWalletConnected
     }
   };
 
-  const updateAccountInfo = async (web3Provider: ethers.BrowserProvider, accountAddress: string) => {
+  const updateAccountInfo = async (web3Provider: ethers.providers.Web3Provider, accountAddress: string) => {
     try {
       const balance = await web3Provider.getBalance(accountAddress);
-      const balanceInEth = ethers.formatEther(balance);
+      const balanceInEth = ethers.utils.formatEther(balance);
       
       setAccount(accountAddress);
       setBalance(balanceInEth);
