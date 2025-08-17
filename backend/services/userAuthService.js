@@ -8,6 +8,7 @@ const jwt = require('jsonwebtoken');
 const { ethers } = require('ethers');
 const { v4: uuidv4 } = require('uuid');
 const config = require('../config');
+const demoWalletService = require('./demoWalletService');
 
 class UserAuthService {
   constructor() {
@@ -226,7 +227,7 @@ class UserAuthService {
       }
 
       // Validate wallet address
-      if (!ethers.isAddress(walletAddress)) {
+      if (!ethers.utils.isAddress(walletAddress)) {
         throw new Error('Invalid wallet address');
       }
 
@@ -308,7 +309,25 @@ class UserAuthService {
    */
   async calculateOnChainScore(walletAddress) {
     try {
-      // Simulate on-chain analysis
+      // Check if this is a demo wallet first for hackathon demo
+      if (demoWalletService.isDemoWallet(walletAddress)) {
+        const demoScore = demoWalletService.calculateDemoOnChainScore(walletAddress);
+        console.log(`🎭 Demo wallet on-chain score: ${demoScore} for ${walletAddress}`);
+        
+        return {
+          success: true,
+          score: demoScore,
+          breakdown: {
+            baseScore: 300,
+            activityScore: demoScore - 300,
+            totalScore: demoScore,
+            isDemoWallet: true,
+            demoProfile: demoWalletService.getDemoWallet(walletAddress)?.profile
+          }
+        };
+      }
+
+      // Simulate on-chain analysis for regular wallets
       // In production, this would analyze real blockchain data
       
       const mockAnalysis = this.generateMockOnChainData(walletAddress);
@@ -634,6 +653,47 @@ class UserAuthService {
 
     req.userId = decoded.userId;
     next();
+  }
+
+  /**
+   * Reset all user data for demo purposes
+   */
+  resetAllData() {
+    console.log('🧹 Resetting all authentication data...');
+    
+    const userCount = this.users.size;
+    const walletCount = this.walletMappings.size;
+    const sessionCount = this.userSessions.size;
+    
+    this.users.clear();
+    this.walletMappings.clear();
+    this.userSessions.clear();
+    this.ssnVerifications.clear();
+    
+    console.log(`✅ Cleared ${userCount} users, ${walletCount} wallet mappings, ${sessionCount} sessions`);
+    
+    return {
+      success: true,
+      message: 'All authentication data has been reset',
+      cleared: {
+        users: userCount,
+        walletMappings: walletCount,
+        sessions: sessionCount
+      },
+      timestamp: new Date().toISOString()
+    };
+  }
+
+  /**
+   * Get authentication statistics
+   */
+  getAuthStats() {
+    return {
+      totalUsers: this.users.size,
+      totalWalletMappings: this.walletMappings.size,
+      activeSessions: this.userSessions.size,
+      ssnVerifications: this.ssnVerifications.size
+    };
   }
 }
 

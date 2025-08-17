@@ -10,6 +10,7 @@ const config = require('./config');
 // Import routes
 const creditScoreRoutes = require('./routes/creditScore');
 const authRoutes = require('./routes/auth');
+const portfolioRoutes = require('./routes/portfolio');
 
 const app = express();
 
@@ -48,6 +49,7 @@ app.get('/health', (req, res) => {
 // API Routes
 app.use('/api/credit-score', creditScoreRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/portfolio', portfolioRoutes);
 
 // Root endpoint
 app.get('/', (req, res) => {

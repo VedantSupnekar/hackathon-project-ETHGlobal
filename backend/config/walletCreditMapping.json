@@ -1,0 +1,176 @@
+{
+  "walletCreditMapping": {
+    "111-11-1111": {
+      "success": true,
+      "creditData": {
+        "creditScore": 820,
+        "paymentHistory": 100,
+        "creditUtilization": 5,
+        "creditHistoryLength": 15,
+        "accountsOpen": 8,
+        "recentInquiries": 0,
+        "publicRecords": 0,
+        "delinquencies": 0,
+        "timestamp": 1755390279
+      },
+      "profile": "EXCELLENT",
+      "walletAddress": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+      "name": "Excellent Credit Alice"
+    },
+    "222-22-2222": {
+      "success": true,
+      "creditData": {
+        "creditScore": 750,
+        "paymentHistory": 95,
+        "creditUtilization": 25,
+        "creditHistoryLength": 8,
+        "accountsOpen": 5,
+        "recentInquiries": 2,
+        "publicRecords": 0,
+        "delinquencies": 0,
+        "timestamp": 1755390279
+      },
+      "profile": "GOOD",
+      "walletAddress": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "name": "Good Credit Bob"
+    },
+    "333-33-3333": {
+      "success": true,
+      "creditData": {
+        "creditScore": 650,
+        "paymentHistory": 75,
+        "creditUtilization": 45,
+        "creditHistoryLength": 5,
+        "accountsOpen": 3,
+        "recentInquiries": 4,
+        "publicRecords": 0,
+        "delinquencies": 1,
+        "timestamp": 1755390279
+      },
+      "profile": "FAIR",
+      "walletAddress": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+      "name": "Fair Credit Charlie"
+    },
+    "444-44-4444": {
+      "success": true,
+      "creditData": {
+        "creditScore": 550,
+        "paymentHistory": 60,
+        "creditUtilization": 75,
+        "creditHistoryLength": 3,
+        "accountsOpen": 2,
+        "recentInquiries": 6,
+        "publicRecords": 1,
+        "delinquencies": 3,
+        "timestamp": 1755390279
+      },
+      "profile": "POOR",
+      "walletAddress": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+      "name": "Poor Credit Dave"
+    },
+    "555-55-5555": {
+      "success": true,
+      "creditData": {
+        "creditScore": 450,
+        "paymentHistory": 40,
+        "creditUtilization": 95,
+        "creditHistoryLength": 2,
+        "accountsOpen": 1,
+        "recentInquiries": 8,
+        "publicRecords": 2,
+        "delinquencies": 5,
+        "timestamp": 1755390279
+      },
+      "profile": "BAD",
+      "walletAddress": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+      "name": "Bad Credit Eve"
+    },
+    "666-66-6666": {
+      "success": true,
+      "creditData": {
+        "creditScore": 350,
+        "paymentHistory": 0,
+        "creditUtilization": 0,
+        "creditHistoryLength": 0,
+        "accountsOpen": 0,
+        "recentInquiries": 1,
+        "publicRecords": 0,
+        "delinquencies": 0,
+        "timestamp": 1755390279
+      },
+      "profile": "NO_CREDIT",
+      "walletAddress": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "name": "No Credit Frank"
+    },
+    "777-77-7777": {
+      "success": true,
+      "creditData": {
+        "creditScore": 580,
+        "paymentHistory": 85,
+        "creditUtilization": 30,
+        "creditHistoryLength": 1,
+        "accountsOpen": 2,
+        "recentInquiries": 2,
+        "publicRecords": 1,
+        "delinquencies": 0,
+        "timestamp": 1755390279
+      },
+      "profile": "RECOVERING",
+      "walletAddress": "0x976EA74026E726554dB657fA54763abd0C3a0aa9",
+      "name": "Recovering Grace"
+    },
+    "888-88-8888": {
+      "success": true,
+      "creditData": {
+        "creditScore": 850,
+        "paymentHistory": 100,
+        "creditUtilization": 2,
+        "creditHistoryLength": 20,
+        "accountsOpen": 12,
+        "recentInquiries": 0,
+        "publicRecords": 0,
+        "delinquencies": 0,
+        "timestamp": 1755390279
+      },
+      "profile": "PREMIUM",
+      "walletAddress": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+      "name": "High Earner Henry"
+    },
+    "999-99-9999": {
+      "success": true,
+      "creditData": {
+        "creditScore": 680,
+        "paymentHistory": 90,
+        "creditUtilization": 15,
+        "creditHistoryLength": 2,
+        "accountsOpen": 2,
+        "recentInquiries": 1,
+        "publicRecords": 0,
+        "delinquencies": 0,
+        "timestamp": 1755390279
+      },
+      "profile": "STUDENT",
+      "walletAddress": "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+      "name": "Student Ivy"
+    },
+    "101010-1010-10101010": {
+      "success": true,
+      "creditData": {
+        "creditScore": 720,
+        "paymentHistory": 88,
+        "creditUtilization": 35,
+        "creditHistoryLength": 10,
+        "accountsOpen": 6,
+        "recentInquiries": 3,
+        "publicRecords": 0,
+        "delinquencies": 1,
+        "timestamp": 1755390279
+      },
+      "profile": "BUSINESS",
+      "walletAddress": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+      "name": "Business Owner Jack"
+    }
+  },
+  "generatedAt": "2025-08-17T00:24:39.504Z",
+  "description": "Maps demo wallet addresses to credit data for FDC integration"
+}

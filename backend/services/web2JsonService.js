@@ -135,8 +135,8 @@ class Web2JsonService {
       sourceId: attestationRequest.sourceId,
       timestamp: attestationRequest.timestamp,
       responseData: attestationRequest.expectedResponse,
-      dataHash: ethers.keccak256(
-        ethers.toUtf8Bytes(JSON.stringify(attestationRequest.expectedResponse))
+      dataHash: ethers.utils.keccak256(
+        ethers.utils.toUtf8Bytes(JSON.stringify(attestationRequest.expectedResponse))
       ),
       requestId: attestationRequest.requestId
     };
@@ -149,7 +149,7 @@ class Web2JsonService {
       attestationData,
       merkleProof,
       blockNumber: Math.floor(Math.random() * 1000000) + 5000000,
-      transactionHash: ethers.keccak256(ethers.toUtf8Bytes(attestationRequest.requestId))
+      transactionHash: ethers.utils.keccak256(ethers.utils.toUtf8Bytes(attestationRequest.requestId))
     };
   }
 
@@ -171,11 +171,11 @@ class Web2JsonService {
     };
 
     // Create proof hash
-    const proofHash = ethers.keccak256(
-      ethers.solidityPacked(
+    const proofHash = ethers.utils.keccak256(
+      ethers.utils.solidityPack(
         ['bytes32', 'string', 'uint256', 'bytes32', 'bytes32', 'uint256', 'bytes32'],
         [
-          ethers.keccak256(ethers.toUtf8Bytes(proofData.requestId)),
+          ethers.utils.keccak256(ethers.utils.toUtf8Bytes(proofData.requestId)),
           proofData.sourceId,
           proofData.timestamp,
           proofData.dataHash,
@@ -201,19 +201,19 @@ class Web2JsonService {
   generateMockMerkleProof(attestationData) {
     const leaves = [
       attestationData.dataHash,
-      ethers.keccak256(ethers.toUtf8Bytes('mock_leaf_1')),
-      ethers.keccak256(ethers.toUtf8Bytes('mock_leaf_2')),
-      ethers.keccak256(ethers.toUtf8Bytes('mock_leaf_3'))
+      ethers.utils.keccak256(ethers.utils.toUtf8Bytes('mock_leaf_1')),
+      ethers.utils.keccak256(ethers.utils.toUtf8Bytes('mock_leaf_2')),
+      ethers.utils.keccak256(ethers.utils.toUtf8Bytes('mock_leaf_3'))
     ];
 
     // Create simple mock Merkle tree
     const level1 = [
-      ethers.keccak256(ethers.solidityPacked(['bytes32', 'bytes32'], [leaves[0], leaves[1]])),
-      ethers.keccak256(ethers.solidityPacked(['bytes32', 'bytes32'], [leaves[2], leaves[3]]))
+      ethers.utils.keccak256(ethers.utils.solidityPack(['bytes32', 'bytes32'], [leaves[0], leaves[1]])),
+      ethers.utils.keccak256(ethers.utils.solidityPack(['bytes32', 'bytes32'], [leaves[2], leaves[3]]))
     ];
 
-    const root = ethers.keccak256(
-      ethers.solidityPacked(['bytes32', 'bytes32'], [level1[0], level1[1]])
+    const root = ethers.utils.keccak256(
+      ethers.utils.solidityPack(['bytes32', 'bytes32'], [level1[0], level1[1]])
     );
 
     return {

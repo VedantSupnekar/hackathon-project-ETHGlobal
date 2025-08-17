@@ -1,15 +1,34 @@
 /**
  * Mock Experian Credit Score API
  * Simulates real Experian API responses for development and testing
+ * Updated to support demo wallets for hackathon presentation
  */
 
 const { v4: uuidv4 } = require('uuid');
+const fs = require('fs');
+const path = require('path');
 
 class ExperianMockService {
   constructor() {
     // Mock database of credit profiles
     this.creditProfiles = new Map();
+    this.walletCreditMapping = {};
+    this.loadDemoWalletMapping();
     this.initializeMockData();
+  }
+
+  loadDemoWalletMapping() {
+    try {
+      const mappingPath = path.join(__dirname, '../config/walletCreditMapping.json');
+      if (fs.existsSync(mappingPath)) {
+        const mappingData = JSON.parse(fs.readFileSync(mappingPath, 'utf8'));
+        this.walletCreditMapping = mappingData.walletCreditMapping || {};
+        console.log('✅ Loaded demo wallet credit mapping for hackathon demo');
+        console.log(`   Mapped ${Object.keys(this.walletCreditMapping).length} demo wallets`);
+      }
+    } catch (error) {
+      console.log('⚠️  Demo wallet mapping not found, using default mock data');
+    }
   }
 
   initializeMockData() {
@@ -220,6 +239,25 @@ class ExperianMockService {
    * @returns {Object} Simplified credit data for blockchain mapping
    */
   async getSimplifiedCreditData(ssn) {
+    // First check demo wallet mapping for hackathon demo
+    if (this.walletCreditMapping[ssn]) {
+      const demoData = this.walletCreditMapping[ssn];
+      console.log(`🎭 Using demo wallet credit data for SSN: ${ssn}`);
+      console.log(`   Profile: ${demoData.name} (${demoData.profile})`);
+      console.log(`   Wallet: ${demoData.walletAddress}`);
+      console.log(`   Credit Score: ${demoData.creditData.creditScore}`);
+      
+      return {
+        success: true,
+        ...demoData.creditData,
+        profile: demoData.profile,
+        walletAddress: demoData.walletAddress,
+        name: demoData.name,
+        isDemoWallet: true
+      };
+    }
+
+    // Fallback to regular mock profiles
     const profile = this.creditProfiles.get(ssn);
     if (!profile) {
       return null;

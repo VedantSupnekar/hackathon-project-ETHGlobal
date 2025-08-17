@@ -1,0 +1,383 @@
+✅ Loaded demo wallet credit mapping for hackathon demo
+   Mapped 10 demo wallets
+FDC Web2JSON Service initialized for Coston2 testnet
+Connected to FDC Hub at: 0x0c13aAE7C43aB3a4B3C963B4D3a31D4f5B9d8B9F
+✅ Loaded demo wallets for hackathon
+   Available wallets: 10
+
+🚀 DeFi Lending Platform API Server Started
+📍 Environment: development
+🌐 Server running on: http://localhost:3001
+📚 API Documentation: http://localhost:3001/api/docs
+🔍 Health Check: http://localhost:3001/health
+
+Available Services:
+✅ Experian Mock API
+✅ Web2JSON FDC Integration
+✅ Flare Network Connection
+
+Ready to process credit score attestations!
+  
+🔗 Connected to network: unknown (Chain ID: 31337)
+✅ Local blockchain detected - real wallet analysis enabled
+2025-08-17T05:23:59.897Z - GET /api/portfolio/blockchain/status
+🔗 Blockchain Service connected to network: unknown (Chain ID: 31337)
+📝 Using service account: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+⚠️  Contract deployment needed - use deployContract() method
+💾 Storage Service initialized: IN-MEMORY
+⚠️  Blockchain not available - using in-memory storage for demo
+🔧 To enable blockchain storage:
+   1. Deploy UserCreditRegistry contract
+   2. Set contract address in blockchainService
+   3. Restart the service
+2025-08-17T05:24:25.140Z - POST /api/portfolio/demo/reset
+🧹 Resetting all user data for demo...
+✅ All user data cleared successfully
+2025-08-17T05:24:27.166Z - GET /api/portfolio/demo/stats
+2025-08-17T05:25:39.445Z - POST /api/portfolio/demo/reset
+🧹 Resetting all user data for demo...
+✅ All user data cleared successfully
+2025-08-17T05:25:50.307Z - POST /api/portfolio/login
+✅ Created user with Web3 ID: 0x772F3B3cb2D66874bB86524306578AF64A3BBFcd
+   User ID: ad913f29-f474-45ba-90bb-1d10674755cc
+   Email: help@gmail.com
+👤 User logged in:
+   Email: help@gmail.com
+   Web3 ID: 0x772F3B3cb2D66874bB86524306578AF64A3BBFcd
+2025-08-17T05:25:50.388Z - GET /api/portfolio/scores
+🎯 Updated composite score:
+   User: help@gmail.com
+   On-chain: null (0 wallets)
+   Off-chain: null
+   Composite: null
+   Weights: 0% on-chain, 0% off-chain
+2025-08-17T05:25:50.392Z - GET /api/portfolio/scores
+🎯 Updated composite score:
+   User: help@gmail.com
+   On-chain: null (0 wallets)
+   Off-chain: null
+   Composite: null
+   Weights: 0% on-chain, 0% off-chain
+2025-08-17T05:25:56.350Z - POST /api/portfolio/link-wallet
+🔍 Analyzing wallet: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+🎭 Demo wallet detected - using predefined score: 635
+💰 Wallet analysis result: 635 for 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+   Analysis: Demo wallet with EXCELLENT credit profile
+📊 Updated aggregated on-chain score:
+   User: help@gmail.com
+   Wallets: 1
+   Individual Scores: 635
+   Aggregated Score: 635
+🔗 Linked wallet to user portfolio:
+   User: help@gmail.com (0x772F3B3cb2D66874bB86524306578AF64A3BBFcd)
+   Wallet: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+   Individual Score: 635
+   Portfolio Wallets: 1
+🔗 Wallet linked to portfolio:
+   User ID: ad913f29-f474-45ba-90bb-1d10674755cc
+   Wallet: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+   Portfolio Size: 1 wallets
+2025-08-17T05:25:56.360Z - GET /api/portfolio/scores
+🎯 Updated composite score:
+   User: help@gmail.com
+   On-chain: 635 (1 wallets)
+   Off-chain: null
+   Composite: 635
+   Weights: 100% on-chain, 0% off-chain
+2025-08-17T05:26:13.196Z - POST /api/portfolio/link-wallet
+🔗 Wallet linked to portfolio:
+   User ID: ad913f29-f474-45ba-90bb-1d10674755cc
+   Wallet: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+   Portfolio Size: undefined wallets
+2025-08-17T05:26:13.204Z - GET /api/portfolio/scores
+🎯 Updated composite score:
+   User: help@gmail.com
+   On-chain: 635 (1 wallets)
+   Off-chain: null
+   Composite: 635
+   Weights: 100% on-chain, 0% off-chain
+2025-08-17T05:26:14.264Z - POST /api/portfolio/link-wallet
+🔍 Analyzing wallet: 0x70997970C51812dc3A010C7d01b50e0d17dc79C8
+🎭 Demo wallet detected - using predefined score: 609
+💰 Wallet analysis result: 609 for 0x70997970C51812dc3A010C7d01b50e0d17dc79C8
+   Analysis: Demo wallet with GOOD credit profile
+📊 Updated aggregated on-chain score:
+   User: help@gmail.com
+   Wallets: 2
+   Individual Scores: 635, 609
+   Aggregated Score: 622
+🔗 Linked wallet to user portfolio:
+   User: help@gmail.com (0x772F3B3cb2D66874bB86524306578AF64A3BBFcd)
+   Wallet: 0x70997970C51812dc3A010C7d01b50e0d17dc79C8
+   Individual Score: 609
+   Portfolio Wallets: 2
+🔗 Wallet linked to portfolio:
+   User ID: ad913f29-f474-45ba-90bb-1d10674755cc
+   Wallet: 0x70997970C51812dc3A010C7d01b50e0d17dc79C8
+   Portfolio Size: 2 wallets
+2025-08-17T05:26:14.269Z - GET /api/portfolio/scores
+🎯 Updated composite score:
+   User: help@gmail.com
+   On-chain: 622 (2 wallets)
+   Off-chain: null
+   Composite: 622
+   Weights: 100% on-chain, 0% off-chain
+2025-08-17T05:26:30.022Z - POST /api/portfolio/set-offchain-score
+🌐 Processing off-chain score for user: help@gmail.com
+   Web3 ID: 0x772F3B3cb2D66874bB86524306578AF64A3BBFcd
+   SSN: 123456789
+Processing FDC Web2JSON attestation for user: 0x772F3B3cb2D66874bB86524306578AF64A3BBFcd
+Created attestation request: fdc_web2json_1755408390024_xg2ppo0s4
+Submitting Web2JSON attestation request to FDC Hub...
+Request ID: fdc_web2json_1755408390024_xg2ppo0s4
+API URL: http://localhost:3001/api/credit-score/experian/simplified
+Following Flare FDC Web2Json pattern from: https://dev.flare.network/fdc/guides/hardhat/web-2-json-for-custom-api
+FDC Request prepared: {
+  attestationType: 'Web2Json',
+  sourceId: 'EXPERIAN_CREDIT_SCORE',
+  apiUrl: 'http://localhost:3001/api/credit-score/experian/simplified',
+  postProcessJq: '{\n' +
+    '      creditScore: .creditData.creditScore,\n' +
+    '      paymentHistory: .creditData.paymentHistory,\n' +
+    '      creditUtilization: .creditData.creditUtilization,\n' +
+    '      creditHistoryLength: .creditData.creditHistoryLength,\n' +
+    '      accountsOpen: .creditData.accountsOpen,\n' +
+    '      recentInquiries: .creditData.recentInquiries,\n' +
+    '      publicRecords: .creditData.publicRecords,\n' +
+    '      delinquencies: .creditData.delinquencies,\n' +
+    '      timestamp: .creditData.timestamp\n' +
+    '    }'
+}
+2025-08-17T05:26:30.066Z - POST /api/credit-score/experian/simplified
+Error submitting to FDC Hub: Error: Web2 API call failed: Request failed with status code 404
+    at FDCWeb2JsonService.submitToFDCHub (/Users/vedantsupnekar/Documents/hackathon-project/backend/services/fdcWeb2JsonService.js:179:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async FDCWeb2JsonService.processCreditScoreAttestation (/Users/vedantsupnekar/Documents/hackathon-project/backend/services/fdcWeb2JsonService.js:399:27)
+    at async UserPortfolioService.setOffChainScore (/Users/vedantsupnekar/Documents/hackathon-project/backend/services/userPortfolioService.js:211:23)
+    at async /Users/vedantsupnekar/Documents/hackathon-project/backend/routes/portfolio.js:212:20
+Error processing FDC credit score attestation: Error: FDC attestation failed: Web2 API call failed: Request failed with status code 404
+    at FDCWeb2JsonService.processCreditScoreAttestation (/Users/vedantsupnekar/Documents/hackathon-project/backend/services/fdcWeb2JsonService.js:402:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async UserPortfolioService.setOffChainScore (/Users/vedantsupnekar/Documents/hackathon-project/backend/services/userPortfolioService.js:211:23)
+    at async /Users/vedantsupnekar/Documents/hackathon-project/backend/routes/portfolio.js:212:20
+Off-chain score error: Error: FDC attestation failed: FDC attestation failed: Web2 API call failed: Request failed with status code 404
+    at UserPortfolioService.setOffChainScore (/Users/vedantsupnekar/Documents/hackathon-project/backend/services/userPortfolioService.js:217:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/vedantsupnekar/Documents/hackathon-project/backend/routes/portfolio.js:212:20
+2025-08-17T05:26:38.104Z - POST /api/portfolio/set-offchain-score
+🌐 Processing off-chain score for user: help@gmail.com
+   Web3 ID: 0x772F3B3cb2D66874bB86524306578AF64A3BBFcd
+   SSN: 123-45-6789
+Processing FDC Web2JSON attestation for user: 0x772F3B3cb2D66874bB86524306578AF64A3BBFcd
+Created attestation request: fdc_web2json_1755408398105_3ehc3741z
+Submitting Web2JSON attestation request to FDC Hub...
+Request ID: fdc_web2json_1755408398105_3ehc3741z
+API URL: http://localhost:3001/api/credit-score/experian/simplified
+Following Flare FDC Web2Json pattern from: https://dev.flare.network/fdc/guides/hardhat/web-2-json-for-custom-api
+FDC Request prepared: {
+  attestationType: 'Web2Json',
+  sourceId: 'EXPERIAN_CREDIT_SCORE',
+  apiUrl: 'http://localhost:3001/api/credit-score/experian/simplified',
+  postProcessJq: '{\n' +
+    '      creditScore: .creditData.creditScore,\n' +
+    '      paymentHistory: .creditData.paymentHistory,\n' +
+    '      creditUtilization: .creditData.creditUtilization,\n' +
+    '      creditHistoryLength: .creditData.creditHistoryLength,\n' +
+    '      accountsOpen: .creditData.accountsOpen,\n' +
+    '      recentInquiries: .creditData.recentInquiries,\n' +
+    '      publicRecords: .creditData.publicRecords,\n' +
+    '      delinquencies: .creditData.delinquencies,\n' +
+    '      timestamp: .creditData.timestamp\n' +
+    '    }'
+}
+2025-08-17T05:26:38.108Z - POST /api/credit-score/experian/simplified
+FDC attestation completed: fdc_web2json_1755408398105_3ehc3741z
+✅ Off-chain score set via FDC:
+   Score: 750
+   FDC Attestation: fdc_web2json_1755408398105_3ehc3741z
+🎯 Updated composite score:
+   User: help@gmail.com
+   On-chain: 622 (2 wallets)
+   Off-chain: 750
+   Composite: 712
+   Weights: 30% on-chain, 70% off-chain
+🌐 Off-chain score set via FDC:
+   User ID: ad913f29-f474-45ba-90bb-1d10674755cc
+   Score: 750
+   FDC Attestation: fdc_web2json_1755408398105_3ehc3741z
+2025-08-17T05:26:38.123Z - GET /api/portfolio/scores
+🎯 Updated composite score:
+   User: help@gmail.com
+   On-chain: 622 (2 wallets)
+   Off-chain: 750
+   Composite: 712
+   Weights: 30% on-chain, 70% off-chain
+2025-08-17T05:26:54.569Z - POST /api/portfolio/link-wallet
+🔗 Wallet linked to portfolio:
+   User ID: ad913f29-f474-45ba-90bb-1d10674755cc
+   Wallet: 0x70997970C51812dc3A010C7d01b50e0d17dc79C8
+   Portfolio Size: undefined wallets
+2025-08-17T05:26:54.575Z - GET /api/portfolio/scores
+🎯 Updated composite score:
+   User: help@gmail.com
+   On-chain: 622 (2 wallets)
+   Off-chain: 750
+   Composite: 712
+   Weights: 30% on-chain, 70% off-chain
+2025-08-17T05:26:57.003Z - POST /api/portfolio/link-wallet
+🔍 Analyzing wallet: 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC
+🎭 Demo wallet detected - using predefined score: 497
+💰 Wallet analysis result: 497 for 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC
+   Analysis: Demo wallet with FAIR credit profile
+📊 Updated aggregated on-chain score:
+   User: help@gmail.com
+   Wallets: 3
+   Individual Scores: 635, 609, 497
+   Aggregated Score: 580
+🔗 Linked wallet to user portfolio:
+   User: help@gmail.com (0x772F3B3cb2D66874bB86524306578AF64A3BBFcd)
+   Wallet: 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC
+   Individual Score: 497
+   Portfolio Wallets: 3
+🔗 Wallet linked to portfolio:
+   User ID: ad913f29-f474-45ba-90bb-1d10674755cc
+   Wallet: 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC
+   Portfolio Size: 3 wallets
+2025-08-17T05:26:57.007Z - GET /api/portfolio/scores
+🎯 Updated composite score:
+   User: help@gmail.com
+   On-chain: 580 (3 wallets)
+   Off-chain: 750
+   Composite: 699
+   Weights: 30% on-chain, 70% off-chain
+2025-08-17T05:31:16.796Z - POST /api/portfolio/demo/reset
+🧹 Resetting all user data for demo...
+✅ All user data cleared successfully
+2025-08-17T05:31:22.092Z - POST /api/portfolio/login
+✅ Created user with Web3 ID: 0x7A6D4937f0ecFc168Fbfe5bC8ad96bb9DA28aC44
+   User ID: f458d445-12b8-4703-911a-4faecd8189aa
+   Email: help@gmail.com
+👤 User logged in:
+   Email: help@gmail.com
+   Web3 ID: 0x7A6D4937f0ecFc168Fbfe5bC8ad96bb9DA28aC44
+2025-08-17T05:31:22.144Z - GET /api/portfolio/scores
+🎯 Updated composite score:
+   User: help@gmail.com
+   On-chain: null (0 wallets)
+   Off-chain: null
+   Composite: null
+   Weights: 0% on-chain, 0% off-chain
+2025-08-17T05:31:22.149Z - GET /api/portfolio/scores
+🎯 Updated composite score:
+   User: help@gmail.com
+   On-chain: null (0 wallets)
+   Off-chain: null
+   Composite: null
+   Weights: 0% on-chain, 0% off-chain
+2025-08-17T05:35:25.930Z - POST /api/auth/login
+Error logging in user: Error: Invalid credentials
+    at UserAuthService.loginUser (/Users/vedantsupnekar/Documents/hackathon-project/backend/services/userAuthService.js:119:15)
+    at /Users/vedantsupnekar/Documents/hackathon-project/backend/routes/auth.js:67:42
+    at Layer.handle [as handle_request] (/Users/vedantsupnekar/Documents/hackathon-project/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/Users/vedantsupnekar/Documents/hackathon-project/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/Users/vedantsupnekar/Documents/hackathon-project/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/Users/vedantsupnekar/Documents/hackathon-project/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /Users/vedantsupnekar/Documents/hackathon-project/backend/node_modules/express/lib/router/index.js:284:15
+    at router.process_params (/Users/vedantsupnekar/Documents/hackathon-project/backend/node_modules/express/lib/router/index.js:346:12)
+    at next (/Users/vedantsupnekar/Documents/hackathon-project/backend/node_modules/express/lib/router/index.js:280:10)
+    at router.handle (/Users/vedantsupnekar/Documents/hackathon-project/backend/node_modules/express/lib/router/index.js:175:3)
+2025-08-17T05:35:30.782Z - POST /api/auth/register
+New user registered: test@test.com (ID: 3adffd8b-5c65-479f-a523-fc0b1acfc8ca)
+2025-08-17T05:35:35.333Z - POST /api/auth/login
+User logged in: test@test.com (ID: 3adffd8b-5c65-479f-a523-fc0b1acfc8ca)
+2025-08-17T05:45:29.184Z - POST /api/portfolio/demo/reset
+🧹 Resetting all user data for demo...
+✅ All user data cleared successfully
+2025-08-17T05:45:33.803Z - POST /api/portfolio/login
+✅ Created user with Web3 ID: 0x7AAC0ec48982b8169daED90845BC5B1D0aae5472
+   User ID: 5d60957b-4e64-4a9c-94c5-e481f5599cb0
+   Email: alicewonderland@gmail.com
+👤 User logged in:
+   Email: alicewonderland@gmail.com
+   Web3 ID: 0x7AAC0ec48982b8169daED90845BC5B1D0aae5472
+2025-08-17T05:45:33.862Z - GET /api/portfolio/scores
+🎯 Updated composite score:
+   User: alicewonderland@gmail.com
+   On-chain: null (0 wallets)
+   Off-chain: null
+   Composite: null
+   Weights: 0% on-chain, 0% off-chain
+2025-08-17T05:45:33.865Z - GET /api/portfolio/scores
+🎯 Updated composite score:
+   User: alicewonderland@gmail.com
+   On-chain: null (0 wallets)
+   Off-chain: null
+   Composite: null
+   Weights: 0% on-chain, 0% off-chain
+2025-08-17T05:45:38.702Z - GET /api/portfolio/scores
+🎯 Updated composite score:
+   User: alicewonderland@gmail.com
+   On-chain: null (0 wallets)
+   Off-chain: null
+   Composite: null
+   Weights: 0% on-chain, 0% off-chain
+2025-08-17T05:45:38.707Z - GET /api/portfolio/scores
+🎯 Updated composite score:
+   User: alicewonderland@gmail.com
+   On-chain: null (0 wallets)
+   Off-chain: null
+   Composite: null
+   Weights: 0% on-chain, 0% off-chain
+2025-08-17T05:45:41.739Z - POST /api/portfolio/link-wallet
+🔍 Analyzing wallet: 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC
+🎭 Demo wallet detected - using predefined score: 458
+💰 Wallet analysis result: 458 for 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC
+   Analysis: Demo wallet with FAIR credit profile
+📊 Updated aggregated on-chain score:
+   User: alicewonderland@gmail.com
+   Wallets: 1
+   Individual Scores: 458
+   Aggregated Score: 458
+🔗 Linked wallet to user portfolio:
+   User: alicewonderland@gmail.com (0x7AAC0ec48982b8169daED90845BC5B1D0aae5472)
+   Wallet: 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC
+   Individual Score: 458
+   Portfolio Wallets: 1
+🔗 Wallet linked to portfolio:
+   User ID: 5d60957b-4e64-4a9c-94c5-e481f5599cb0
+   Wallet: 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC
+   Portfolio Size: 1 wallets
+2025-08-17T05:45:41.745Z - GET /api/portfolio/scores
+🎯 Updated composite score:
+   User: alicewonderland@gmail.com
+   On-chain: 458 (1 wallets)
+   Off-chain: null
+   Composite: 458
+   Weights: 100% on-chain, 0% off-chain
+2025-08-17T05:46:32.396Z - POST /api/portfolio/demo/reset
+🧹 Resetting all user data for demo...
+✅ All user data cleared successfully
+2025-08-17T05:46:39.856Z - POST /api/portfolio/login
+✅ Created user with Web3 ID: 0xb0e4B49a45C32537cC317433326557221280502b
+   User ID: 82db1850-f255-4f7a-a95d-73889d0d826a
+   Email: vedant.supnekar@gmail.com
+👤 User logged in:
+   Email: vedant.supnekar@gmail.com
+   Web3 ID: 0xb0e4B49a45C32537cC317433326557221280502b
+2025-08-17T05:46:39.906Z - GET /api/portfolio/scores
+🎯 Updated composite score:
+   User: vedant.supnekar@gmail.com
+   On-chain: null (0 wallets)
+   Off-chain: null
+   Composite: null
+   Weights: 0% on-chain, 0% off-chain
+2025-08-17T05:46:39.907Z - GET /api/portfolio/scores
+🎯 Updated composite score:
+   User: vedant.supnekar@gmail.com
+   On-chain: null (0 wallets)
+   Off-chain: null
+   Composite: null
+   Weights: 0% on-chain, 0% off-chain
+2025-08-17T05:46:45.210Z - POST /api/portfolio/demo/reset
+🧹 Resetting all user data for demo...
+✅ All user data cleared successfully

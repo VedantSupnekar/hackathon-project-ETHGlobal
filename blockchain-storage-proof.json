@@ -1,0 +1,57 @@
+{
+  "network": {
+    "chainId": "31337",
+    "name": "localhost"
+  },
+  "userAddress": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+  "dataStorageTransactions": {
+    "userRegistration": {
+      "hash": "0xa0284a5fa00445619ed556f36aa9c6b85404df7a269b8025a811eef4f83c96ac",
+      "blockNumber": 1,
+      "blockHash": "0xaeaca9b6d499504130ff1860672c0ad883b4f2e9883acb6fd86beb1468969eb5",
+      "gasUsed": "23944",
+      "data": {
+        "email": "demo@hackathon.com",
+        "firstName": "Demo",
+        "lastName": "User",
+        "web3Id": "0xa0956f2f8b625f6ca1e291aead22bb07bbd2af7722a61dba36b691d95e848bf9",
+        "timestamp": "2025-08-17T05:39:20.319Z"
+      }
+    },
+    "creditScore": {
+      "hash": "0xd3425faa5e1ac097649204bcb8080dfa430331e5c8893142e0d9e9fef5a8042e",
+      "blockNumber": 2,
+      "blockHash": "0x203b63361a17ef5ef1ac4f5841bad872160bb81bf471911f865cdab9ee8f889e",
+      "gasUsed": "24472",
+      "data": {
+        "web3Id": "0xa0956f2f8b625f6ca1e291aead22bb07bbd2af7722a61dba36b691d95e848bf9",
+        "onChainScore": 720,
+        "offChainScore": 680,
+        "compositeScore": 700,
+        "fdcAttestationId": "fdc-1755409160416",
+        "timestamp": "2025-08-17T05:39:20.416Z"
+      }
+    },
+    "walletLink": {
+      "hash": "0x1a27b7b388a6381930a150c95c9974388b7957fb976092bb46004a12080332ca",
+      "blockNumber": 3,
+      "blockHash": "0x5210c872ad91cf887e41e9feb0af3552a3afc7bc478cfcdaa8f2a1c3236a5f77",
+      "gasUsed": "24888",
+      "data": {
+        "web3Id": "0xa0956f2f8b625f6ca1e291aead22bb07bbd2af7722a61dba36b691d95e848bf9",
+        "linkedWallet": "0x742d35Cc6635C0532925a3b8D67C9e5b538Eb24d",
+        "linkType": "external",
+        "signature": "demo-signature-1755409160516",
+        "timestamp": "2025-08-17T05:39:20.516Z"
+      }
+    }
+  },
+  "proof": {
+    "totalTransactions": 3,
+    "totalGasUsed": "73304",
+    "dataStoredOnChain": true,
+    "immutable": true,
+    "verifiable": true,
+    "timestamp": "2025-08-17T05:39:20.682Z"
+  }
+}

@@ -155,8 +155,8 @@ class FDCWeb2JsonService {
 
       // Step 1: Prepare attestation request data according to Flare FDC spec
       const fdcRequestData = {
-        attestationType: ethers.keccak256(ethers.toUtf8Bytes("Web2Json")),
-        sourceId: ethers.keccak256(ethers.toUtf8Bytes(attestationRequest.sourceId)),
+        attestationType: ethers.utils.keccak256(ethers.utils.toUtf8Bytes("Web2Json")),
+        sourceId: ethers.utils.keccak256(ethers.utils.toUtf8Bytes(attestationRequest.sourceId)),
         timestamp: attestationRequest.timestamp,
         apiUrl: attestationRequest.apiUrl,
         postProcessJq: attestationRequest.postProcessJq,
@@ -292,15 +292,15 @@ class FDCWeb2JsonService {
       const encodedData = this.encodeDataForSolidity(processedData, abiSignature);
 
       // Generate data hash
-      const dataHash = ethers.keccak256(encodedData);
+      const dataHash = ethers.utils.keccak256(encodedData);
 
       // Create merkle proof structure
       const merkleProof = this.generateMerkleProof(dataHash);
 
       // Simulate block information (in real implementation, this comes from FDC)
       const blockNumber = Math.floor(Math.random() * 1000000) + 5000000;
-      const transactionHash = ethers.keccak256(
-        ethers.toUtf8Bytes(`${attestationData.requestId}_${Date.now()}`)
+      const transactionHash = ethers.utils.keccak256(
+        ethers.utils.toUtf8Bytes(`${attestationData.requestId}_${Date.now()}`)
       );
 
       return {
@@ -339,7 +339,7 @@ class FDCWeb2JsonService {
 
       // Encode using ethers ABI coder
       const types = abiSignature.components.map(c => c.type);
-      const encoded = ethers.AbiCoder.defaultAbiCoder().encode(types, values);
+      const encoded = ethers.utils.defaultAbiCoder.encode(types, values);
       
       return encoded;
     } catch (error) {
@@ -357,19 +357,19 @@ class FDCWeb2JsonService {
     // Create a simple mock Merkle tree for demonstration
     const leaves = [
       dataHash,
-      ethers.keccak256(ethers.toUtf8Bytes('mock_leaf_1')),
-      ethers.keccak256(ethers.toUtf8Bytes('mock_leaf_2')),
-      ethers.keccak256(ethers.toUtf8Bytes('mock_leaf_3'))
+      ethers.utils.keccak256(ethers.utils.toUtf8Bytes('mock_leaf_1')),
+      ethers.utils.keccak256(ethers.utils.toUtf8Bytes('mock_leaf_2')),
+      ethers.utils.keccak256(ethers.utils.toUtf8Bytes('mock_leaf_3'))
     ];
 
     // Build tree levels
     const level1 = [
-      ethers.keccak256(ethers.solidityPacked(['bytes32', 'bytes32'], [leaves[0], leaves[1]])),
-      ethers.keccak256(ethers.solidityPacked(['bytes32', 'bytes32'], [leaves[2], leaves[3]]))
+      ethers.utils.keccak256(ethers.utils.solidityPack(['bytes32', 'bytes32'], [leaves[0], leaves[1]])),
+      ethers.utils.keccak256(ethers.utils.solidityPack(['bytes32', 'bytes32'], [leaves[2], leaves[3]]))
     ];
 
-    const root = ethers.keccak256(
-      ethers.solidityPacked(['bytes32', 'bytes32'], [level1[0], level1[1]])
+    const root = ethers.utils.keccak256(
+      ethers.utils.solidityPack(['bytes32', 'bytes32'], [level1[0], level1[1]])
     );
 
     return {
