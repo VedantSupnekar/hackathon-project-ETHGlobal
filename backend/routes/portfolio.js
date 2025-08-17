@@ -38,54 +38,15 @@ async function authenticateUser(req, res, next) {
  * Simple login endpoint (for demo purposes)
  */
 router.post('/login', async (req, res) => {
-  try {
-    const { email, password } = req.body;
-
-    if (!email || !password) {
-      return res.status(400).json({
-        success: false,
-        error: 'Email and password are required'
-      });
-    }
-
-    // For demo purposes, create a user if they don't exist
-    // In production, you'd validate against stored credentials
-    const result = await userPortfolioService.createUser({
-      email,
-      firstName: 'Demo',
-      lastName: 'User',
-      ssn: '000-00-0000'
-    });
-
-    const token = jwt.sign(
-      { userId: result.userId, web3Id: result.web3Id },
-      process.env.JWT_SECRET || 'your-secret-key',
-      { expiresIn: '24h' }
-    );
-
-    console.log(`👤 User logged in:`);
-    console.log(`   Email: ${email}`);
-    console.log(`   Web3 ID: ${result.web3Id}`);
-
-    res.json({
-      success: true,
-      message: 'Login successful',
-      token,
-      user: {
-        userId: result.userId,
-        web3Id: result.web3Id,
-        email,
-        firstName: 'Demo',
-        lastName: 'User'
-      }
-    });
-  } catch (error) {
-    console.error('Login error:', error);
-    res.status(500).json({
-      success: false,
-      error: 'Login failed: ' + error.message
-    });
-  }
+  // 🚨 SECURITY: This endpoint has been disabled
+  // It was automatically creating users without password validation!
+  res.status(410).json({
+    success: false,
+    error: '🚨 SECURITY: This endpoint has been disabled',
+    message: 'This endpoint was creating users without password validation!',
+    solution: 'Use /api/auth/login for secure authentication',
+    redirect: '/api/auth/login'
+  });
 });
 
 /**

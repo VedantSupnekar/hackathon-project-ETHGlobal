@@ -8,6 +8,8 @@ const { v4: uuidv4 } = require('uuid');
 const demoWalletService = require('./demoWalletService');
 const fdcWeb2JsonService = require('./fdcWeb2JsonService');
 const walletAnalysisService = require('./walletAnalysisService');
+const decentralizedStorageService = require('./decentralizedStorageService');
+const ipfsService = require('./simpleIpfsService');
 
 class UserPortfolioService {
   constructor() {
@@ -15,6 +17,9 @@ class UserPortfolioService {
     this.userProfiles = new Map(); // userId -> userProfile
     this.walletToUser = new Map();  // walletAddress -> userId
     this.web3IdToUser = new Map();  // web3Id -> userId
+    this.useDecentralizedStorage = true; // Enable IPFS + blockchain storage
+    
+    console.log('📊 User Portfolio Service initialized with decentralized storage');
   }
 
   /**
@@ -56,11 +61,25 @@ class UserPortfolioService {
     console.log(`   User ID: ${userId}`);
     console.log(`   Email: ${userData.email}`);
 
+    // Store on IPFS if enabled
+    if (this.useDecentralizedStorage) {
+      try {
+        const ipfsResult = await decentralizedStorageService.registerUser(userProfile);
+        userProfile.ipfsHash = ipfsResult.ipfsHash;
+        userProfile.ipfsGateway = ipfsResult.gatewayUrl;
+        console.log(`🌐 User data stored on IPFS: ${ipfsResult.ipfsHash}`);
+      } catch (error) {
+        console.warn('⚠️  IPFS storage failed, continuing with local storage:', error.message);
+      }
+    }
+
     return {
       success: true,
       userId,
       web3Id,
-      userProfile
+      userProfile,
+      ipfsHash: userProfile.ipfsHash,
+      decentralized: !!userProfile.ipfsHash
     };
   }
 
@@ -126,11 +145,38 @@ class UserPortfolioService {
     console.log(`   Individual Score: ${onChainScore}`);
     console.log(`   Portfolio Wallets: ${userProfile.linkedWallets.length}`);
 
+    // Store wallet link on IPFS if enabled
+    if (this.useDecentralizedStorage) {
+      try {
+        const walletLinkData = {
+          web3Id: userProfile.web3Id,
+          walletAddress,
+          signature,
+          onChainScore,
+          timestamp: new Date().toISOString()
+        };
+        
+        const ipfsResult = await decentralizedStorageService.linkWallet(
+          userProfile.web3Id, 
+          walletAddress, 
+          walletLinkData
+        );
+        
+        walletEntry.ipfsHash = ipfsResult.ipfsHash;
+        walletEntry.ipfsGateway = ipfsResult.gatewayUrl;
+        console.log(`🌐 Wallet link stored on IPFS: ${ipfsResult.ipfsHash}`);
+      } catch (error) {
+        console.warn('⚠️  IPFS wallet link storage failed:', error.message);
+      }
+    }
+
     return {
       success: true,
       wallet: walletEntry,
       portfolioWallets: userProfile.linkedWallets.length,
-      aggregatedOnChainScore: userProfile.onChainScore
+      aggregatedOnChainScore: userProfile.onChainScore,
+      ipfsHash: walletEntry.ipfsHash,
+      decentralized: !!walletEntry.ipfsHash
     };
   }
 

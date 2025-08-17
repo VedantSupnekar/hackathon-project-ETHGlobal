@@ -103,7 +103,7 @@ export const authAPI = {
   },
 
   login: async (data: LoginRequest) => {
-    const response = await api.post('/api/portfolio/login', data);
+    const response = await api.post('/api/auth/login', data);
     return response.data;
   },
 };
