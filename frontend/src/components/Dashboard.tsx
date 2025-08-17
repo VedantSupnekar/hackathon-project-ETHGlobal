@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { portfolioAPI, demoAPI, WalletLinkRequest, OffChainScoreRequest, ScoresResponse } from '@/lib/api';
 import MetaMaskConnector from './MetaMaskConnector';
+import ReferralSystem from './ReferralSystem';
+import DemoReferralSystem from './DemoReferralSystem';
 import { ethers } from 'ethers';
 
 const Dashboard: React.FC = () => {
@@ -24,9 +26,9 @@ const Dashboard: React.FC = () => {
   });
   const [settingOffChain, setSettingOffChain] = useState(false);
   
-  // Referral state (placeholder for future implementation)
-  const [showReferralModal, setShowReferralModal] = useState(false);
-  const [referralEmail, setReferralEmail] = useState('');
+  // Referral state
+  const [showReferralSystem, setShowReferralSystem] = useState(false);
+  const [useDemoMode, setUseDemoMode] = useState(false);
 
   // Demo reset state
   const [showResetModal, setShowResetModal] = useState(false);
@@ -354,13 +356,13 @@ const Dashboard: React.FC = () => {
           </button>
           
           <button
-            onClick={() => setShowReferralModal(true)}
+            onClick={() => setShowReferralSystem(true)}
             className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:from-green-600 hover:to-emerald-700 transition-all duration-200 flex items-center justify-center"
           >
             <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
             </svg>
-            Refer Friend
+            Referral Network
           </button>
         </div>
 
@@ -411,29 +413,48 @@ const Dashboard: React.FC = () => {
           )}
         </div>
 
-        {/* Referral Section (Placeholder) */}
+        {/* Referral Section Preview */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="bg-white rounded-lg shadow-lg p-6">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Referral Score</h3>
             <div className="text-center py-8">
-              <div className="text-3xl font-bold text-gray-400">Coming Soon</div>
-              <div className="text-sm text-gray-600 mt-2">Referral system via The Graph</div>
+              <div className="text-3xl font-bold text-green-600">Ready!</div>
+              <div className="text-sm text-gray-600 mt-2">Referral system with The Graph</div>
+              <button
+                onClick={() => setShowReferralSystem(true)}
+                className="mt-4 bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors"
+              >
+                Open Referral Network
+              </button>
             </div>
           </div>
           
           <div className="bg-white rounded-lg shadow-lg p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Referral Activity</h3>
-            <div className="space-y-4">
-              <div className="flex justify-between items-center">
-                <span className="text-gray-600">People Referred</span>
-                <span className="font-semibold">0</span>
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">How It Works</h3>
+            <div className="space-y-3 text-sm">
+              <div className="flex items-start">
+                <div className="bg-blue-100 rounded-full p-1 mr-3 mt-0.5">
+                  <span className="text-blue-600 text-xs">1</span>
+                </div>
+                <span className="text-gray-700">Refer friends by email (they must accept)</span>
               </div>
-              <div className="flex justify-between items-center">
-                <span className="text-gray-600">Referred By</span>
-                <span className="font-semibold">None</span>
+              <div className="flex items-start">
+                <div className="bg-blue-100 rounded-full p-1 mr-3 mt-0.5">
+                  <span className="text-blue-600 text-xs">2</span>
+                </div>
+                <span className="text-gray-700">When they improve credit (+5 pts), you get 1 referral point</span>
               </div>
-              <div className="text-xs text-gray-500 mt-4">
-                🚧 Referral tracking system coming soon with The Graph integration
+              <div className="flex items-start">
+                <div className="bg-blue-100 rounded-full p-1 mr-3 mt-0.5">
+                  <span className="text-blue-600 text-xs">3</span>
+                </div>
+                <span className="text-gray-700">Chain rewards: deeper levels get 0.001 pts per level</span>
+              </div>
+              <div className="flex items-start">
+                <div className="bg-red-100 rounded-full p-1 mr-3 mt-0.5">
+                  <span className="text-red-600 text-xs">!</span>
+                </div>
+                <span className="text-gray-700">Bad credit decisions (-5 pts) cause penalties</span>
               </div>
             </div>
           </div>
@@ -589,39 +610,50 @@ const Dashboard: React.FC = () => {
         </div>
       )}
 
-      {/* Referral Modal (Placeholder) */}
-      {showReferralModal && (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Refer a Friend</h3>
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Friend's Email
-              </label>
-              <input
-                type="email"
-                value={referralEmail}
-                onChange={(e) => setReferralEmail(e.target.value)}
-                placeholder="friend@example.com"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-green-500 focus:border-green-500"
-              />
-              <p className="text-xs text-gray-500 mt-1">
-                🚧 Referral system coming soon with The Graph integration
-              </p>
+      {/* Referral System Modal */}
+      {showReferralSystem && (
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50 overflow-y-auto">
+          <div className="bg-white rounded-lg max-w-6xl w-full mx-4 my-8 max-h-screen overflow-y-auto">
+            <div className="flex items-center justify-between p-6 border-b">
+              <h2 className="text-2xl font-bold text-gray-900">Referral Network</h2>
+              <button
+                onClick={() => setShowReferralSystem(false)}
+                className="text-gray-400 hover:text-gray-600 text-2xl"
+              >
+                ×
+              </button>
             </div>
-            <div className="flex space-x-3">
-              <button
-                onClick={() => setShowReferralModal(false)}
-                className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50"
-              >
-                Cancel
-              </button>
-              <button
-                disabled
-                className="flex-1 px-4 py-2 bg-gray-400 text-white rounded-md cursor-not-allowed"
-              >
-                Coming Soon
-              </button>
+            <div className="p-0">
+              {/* Mode Toggle */}
+              <div className="bg-white shadow rounded-lg p-4 mb-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="text-lg font-medium text-gray-900">Referral System Mode</h3>
+                    <p className="text-sm text-gray-600">Choose between live blockchain or demo mode for presentation</p>
+                  </div>
+                  <div className="flex items-center space-x-4">
+                    <button
+                      onClick={() => setUseDemoMode(false)}
+                      className={`px-4 py-2 rounded-lg ${!useDemoMode 
+                        ? 'bg-blue-600 text-white' 
+                        : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+                    >
+                      Live Blockchain
+                    </button>
+                    <button
+                      onClick={() => setUseDemoMode(true)}
+                      className={`px-4 py-2 rounded-lg ${useDemoMode 
+                        ? 'bg-green-600 text-white' 
+                        : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+                    >
+                      🎭 Demo Mode
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Render appropriate component */}
+              {useDemoMode ? <DemoReferralSystem /> : <ReferralSystem />}
             </div>
           </div>
         </div>

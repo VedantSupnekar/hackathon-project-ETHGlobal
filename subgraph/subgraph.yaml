@@ -1,0 +1,40 @@
+specVersion: 0.0.4
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: ReferralCreditNetwork
+    network: localhost # Change to mainnet, goerli, etc. for deployment
+    source:
+      address: "0x5FbDB2315678afecb367f032d93F642f64180aa3" # Will be updated after contract deployment
+      abi: ReferralCreditNetwork
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - User
+        - ReferralRelationship
+        - CreditEvent
+        - ReferralReward
+        - ReferralPath
+        - NetworkStats
+        - DailyStats
+        - UserMetrics
+        - ReferralCode
+      abis:
+        - name: ReferralCreditNetwork
+          file: ../artifacts/contracts/ReferralCreditNetwork.sol/ReferralCreditNetwork.json
+      eventHandlers:
+        - event: UserRegistered(indexed bytes32,indexed address,indexed bytes32)
+          handler: handleUserRegistered
+        - event: ReferralCreated(indexed bytes32,indexed bytes32,uint256)
+          handler: handleReferralCreated
+        - event: CreditScoreUpdated(indexed bytes32,uint256,uint256,int256)
+          handler: handleCreditScoreUpdated
+        - event: ReferralRewardDistributed(indexed bytes32,indexed bytes32,uint256,uint256)
+          handler: handleReferralRewardDistributed
+        - event: CreditEventRecorded(indexed uint256,indexed bytes32,int256,string)
+          handler: handleCreditEventRecorded
+      file: ./src/mapping.ts

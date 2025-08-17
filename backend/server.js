@@ -12,6 +12,7 @@ const creditScoreRoutes = require('./routes/creditScore');
 const authRoutes = require('./routes/auth');
 const portfolioRoutes = require('./routes/portfolio');
 const ipfsRoutes = require('./routes/ipfs');
+const referralRoutes = require('./routes/referral');
 
 const app = express();
 
@@ -52,6 +53,7 @@ app.use('/api/credit-score', creditScoreRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/portfolio', portfolioRoutes);
 app.use('/api/ipfs', ipfsRoutes);
+app.use('/api/referral', referralRoutes);
 
 // Root endpoint
 app.get('/', (req, res) => {
@@ -65,6 +67,7 @@ app.get('/', (req, res) => {
       authentication: '/api/auth',
       portfolio: '/api/portfolio',
       ipfs: '/api/ipfs',
+      referral: '/api/referral',
       documentation: '/api/docs'
     }
   });
